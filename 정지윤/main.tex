@@ -38,9 +38,9 @@
 	\maketitle
 	
 	\begin{abstract}
-		This survey presents an overview of the advances around Tverberg's theorem, focusing on the last two decades.  We discuss the topological, linear-algebraic, and combinatorial aspects of Tverberg's theorem and its applications.  The survey contains several open problems and conjectures.
+		This survey presents an overview of the winning artificial intelligence of the board game, Rummikub.  We discuss the topological, linear-algebraic, and combinatorial aspects of Tverberg's theorem and its applications.  The survey contains several open problems and conjectures.
 		\begin{CJK}{UTF8}{mj}
-			한글도 사용 가능합니다.
+			한글도 사용 가능합니다. 루미큐브 필승전략 아니 필승 AI
 		\end{CJK}
 	\end{abstract}
 	
@@ -68,7 +68,7 @@
 	
 	The last decade has seen an impressive sequence of results around Tverberg's theorem.  The purpose of this survey is to give a broad overview of  the current state of the field and point out key open problems.  Other surveys covering different aspects of Tverberg's theorem can be found in \cite{Eckhoff:1979bi, Eck93survey, Matousek:2002td, BBZ17survey, de2017discrete, BZ17}.
 	
-	The paper is organized as follows.  In sections \ref{section-topological} and \ref{section-colored} we describe the topological and colorful versions of Tverberg's theorem, which have received the most attention in recent years.  In sections \ref{section-intersection} and \ref{section-universal} we discuss a large number of variations and conjectures around Tverberg's theorem.  In Section \ref{section-applications} we describe some applications of Tverberg's theorem.  Finally, in Section \ref{section-spaces} we present Tverberg-type results where the settings have changed dramatically, such as Tverberg for convexity spaces or quantitative versions.  In that last section, we focus mostly on results which are related to geometry.
+	The paper is organized as follows.  In sections \ref{section-information} and \ref{section-alphago} we describe the topological and colorful versions of Tverberg's theorem, which have received the most attention in recent years.  In sections \ref{section-intersection} and \ref{section-universal} we discuss a large number of variations and conjectures around Tverberg's theorem.  In Section \ref{section-applications} we describe some applications of Tverberg's theorem.  Finally, in Section \ref{section-spaces} we present Tverberg-type results where the settings have changed dramatically, such as Tverberg for convexity spaces or quantitative versions.  In that last section, we focus mostly on results which are related to geometry.
 	
 	\subsection{Interlude: a short history of Tverberg's theorem}
 	An early predecessor of Tverberg's theorem is Radon's lemma from 1921 \cite{Radon:1921vh, Eckhoff:1979bi}. Radon used it in his proof of Helly's theorem. It says that \textit{any set $X$ of $d+2$ points in $\rr^d$ can be split into two sets whose convex hulls intersect}. So it is the case $r=2$ of Tverberg's theorem. Its proof is simple: the $d+2$ vectors in $X$ have a nontrivial affine dependence $\sum_{x \in X}\al(x)x=0$ and  $\sum_{x \in X}\al(x)=0$. The sets $X_1=\{x \in X: \al(x)\ge 0\}$ and $X_2=\{x \in X: \al(x) < 0\}$ form a partition of $X$ and their convex hulls intersect, as one can easily check.
@@ -79,17 +79,19 @@
 	
 	Tverberg's original motivation was also the centerpoint theorem and he learned about Birch's result and conjecture only later. He proved it first for $d=3$ in 1963, and in full generality in 1964.  Here is, in his own words, how he found the proof:  ``I recall that the weather was bitterly cold in Manchester. I awoke very early one morning shivering, as the electric heater in the hotel room had gone off, and I did not have an extra shilling to feed the meter. So, instead of falling back to sleep, I reviewed the problem once more, and then the solution dawned on me!'' \cite{tve:recollections}.
 	
-	\section{Topological versions}\label{section-topological}
+	\section{Complete and Incomplete Information Game}\label{section-information}
 	
-	\section{Colorful versions}\label{section-colored}
+	\section{Case Study: AlphaGo}\label{section-alphago}
+	As seen in the last section, the game of Go is a complete information game.
+	\section{Case Study: Prisoner's Dilemma}\label{section-prisoner's dilemma}
+	As seen in the first section, the Prisoner's Dilemma is an incomplete information game.
+	\section{Integer Linear Programming}\label{section-ILP}
 	
-	\section{The structure of Tverberg partitions}\label{section-intersection}
+	\section{ILP on Rummikub}\label{section-applications}
 	
-	\section{Universal Tverberg partitions}\label{section-universal}
-	
-	\section{Applications of Tverberg's theorem}\label{section-applications}
-	
-	\section{Tverberg-type results in distinct settings}\label{section-spaces}
+	%\section{~ on Rummikub}\label{section-spaces}
+
+	\section{Implementation}\label{section-spaces}
 	
 	\bibliographystyle{alpha}
 	\bibliography{references} % see references.bib for bibliography management
