@@ -50,6 +50,15 @@
 		본문에서도 당연히 한글 사용 가능합니다..만, CJK 환경으로 지정해야 합니다. 텍 소스를 보세요.
 	\end{CJK}
 	
+	Rummikub is a number-based board game. The players do not know 
+	
+	
+	
+	
+	
+	
+	
+	
 	Tverberg's theorem has been a cornerstone of combinatorial convexity for over fifty years. Its impact and influence is only comparable to that of the famous and classic theorems of Carath\'eodory and Helly. This gem lies at the crossroads of combinatorics, topology, and linear algebra, and continues to yield challenging and interesting open problems.  Its states the following.%  If we denote by $\conv(S)$ the convex hull of a set $S \subset \rr^d$, it says the following
 	
 	\begin{theorem}[Helge Tverberg 1966 \cite{Tverberg:1966tb}]
@@ -80,16 +89,49 @@
 	Tverberg's original motivation was also the centerpoint theorem and he learned about Birch's result and conjecture only later. He proved it first for $d=3$ in 1963, and in full generality in 1964.  Here is, in his own words, how he found the proof:  ``I recall that the weather was bitterly cold in Manchester. I awoke very early one morning shivering, as the electric heater in the hotel room had gone off, and I did not have an extra shilling to feed the meter. So, instead of falling back to sleep, I reviewed the problem once more, and then the solution dawned on me!'' \cite{tve:recollections}.
 	
 	\section{Complete and Incomplete Information Game}\label{section-information}
+	%두번째 줄에서 보여지는 게 목적이다. intro 와 같이 가도록. 바뀌면 다른 것도 바뀌게.
+	There are diverse classification of games--zero-sum and non-zero-sum game, perfect and imperfect information game, and $n$-person game to name a few. In order to make a program that wins the game Rummikub, it is meaningful to look over prior researches of similar or opposite kinds of game. First, the game Rummikub is classified into an incomplete information game which is an opposite concept of a complete information game. 
+	
+	
+	Definition. Utility function
+	
+	Definition. common knowledge
+
+	
+	\subsection{Complete information game}
+	
+		
+	
+	\subsection{Incomplete information game}
+	
+	Definition. An "incomplete information" refers to situations where some of the elements of the game are not common knowledge
+	% reference 그대로 적음 p483 그래도 되나? 다른 더 좋은/권위있는 책 있나?
+	%이 정도는 다 알거라고 가정하고 그냥 정의 정도만 할까. 게임이론 경제 학부 수준일테니.
+	
 	
 	\section{Case Study: AlphaGo}\label{section-alphago}
-	As seen in the last section, the game of Go is a complete information game.
+	As seen in Section \ref{section-information}, the game of Go is a complete information game.
+	
+	%목적함수가 p, v, rollout?
+	Definition. policy network
+	Definition. value network
+	Definition. rollout / monte carlo rollout
+	
+	
+	
+	
+	
 	\section{Case Study: Prisoner's Dilemma}\label{section-prisoner's dilemma}
-	As seen in the first section, the Prisoner's Dilemma is an incomplete information game.
+	As seen in Section\ref{section-information}, the Prisoner's Dilemma is an incomplete information game.
 	\section{Integer Linear Programming}\label{section-ILP}
+	
+	
 	
 	\section{ILP on Rummikub}\label{section-applications}
 	
 	%\section{~ on Rummikub}\label{section-spaces}
+
+	%anyone can do until now
 
 	\section{Implementation}\label{section-spaces}
 	
