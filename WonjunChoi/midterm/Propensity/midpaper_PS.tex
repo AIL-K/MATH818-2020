@@ -1,0 +1,92 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath, amssymb, amscd, amsthm, amsfonts}
+\usepackage{graphicx}
+\usepackage{hyperref}
+
+% Korean packages
+\usepackage[T1]{fontenc}
+\usepackage{CJKutf8}
+
+\oddsidemargin 0pt
+\evensidemargin 0pt
+\marginparwidth 40pt
+\marginparsep 10pt
+\topmargin -20pt
+\headsep 10pt
+\textheight 8.7in
+\textwidth 6.65in
+\linespread{1.2}
+
+\title{Application of Machine Learning for Policy Evaluation\\
+	\large MATH 818.01 Midterm Survey
+}
+\author{Wonjun Choi}
+\date{}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{conjecture}[theorem]{Conjecture}
+
+\newcommand{\rr}{\mathbb{R}}
+
+\newcommand{\al}{\alpha}
+\DeclareMathOperator{\conv}{conv}
+\DeclareMathOperator{\aff}{aff}
+
+\begin{document}
+	
+	\maketitle
+	
+	\begin{abstract}
+This paper surveys recent applications of machine learning(ML) methods in economics and policy evaluation literature. Typical approaches in economics are briefly introduced and recent literatures on the application of ML follow. Suggestions for the final project is given in the final section as well.
+	\end{abstract}
+	
+	\section{Introduction}\label{section-introduction}
+	
+	%\begin{CJK}{UTF8}{mj}
+		%본문에서도 당연히 한글 사용 가능합니다..만, CJK 환경으로 지정해야 합니다. 텍 소스를 보세요.
+	%\end{CJK}
+	
+	%\begin{theorem}[Helge Tverberg 1966 \cite{Tverberg:1966tb}]
+		%Given $(r-1)(d+1)+1$ points in $\rr^d$, there is a partition of them into $r$ parts whose convex hulls intersect.
+	%\end{theorem}
+	
+	\section{Problem at Hand in Policy Evaluation}
+	Before we begin, I introduce typical approaches in economics for policy evaluation.
+	
+	About causality.
+	
+	\subsection*{Potential Outcome Framework}
+	2-3 paragraphs
+	
+	\subsection*{Matching and Propensity Score}
+	2-3 paragraphs.
+	
+	\section{Probabilistic Models in AI/ML}
+Classification: Tree, SVM, NN, etc...
+	
+	\section{Challenges in Applying AI/ML}
+	Interpretation of parameter
+	
+	Bias Variance Trade-off
+	
+	\section{Machine Learning Literatures in Economics}
+	Tree related methods: Causal Tree/Forest, Generalized Random Forest - Unbiased for various outcome variable(by modification of the loss function)
+	
+	DeepIV
+	
+	Contextual bandit and policy learning: I find this topic very interesting... survey topic or final project may change.
+	
+	Double Machine Learning
+	
+	\section{Conclusion}
+	Conclusion
+	
+	Final project
+	
+	
+	
+	\bibliographystyle{alpha}
+	\bibliography{references} % see references.bib for bibliography management
+	
+\end{document}

@@ -1,0 +1,105 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath, amssymb, amscd, amsthm, amsfonts}
+\usepackage{graphicx}
+\usepackage{hyperref}
+
+% Korean packages
+\usepackage[T1]{fontenc}
+\usepackage{CJKutf8}
+
+\oddsidemargin 0pt
+\evensidemargin 0pt
+\marginparwidth 40pt
+\marginparsep 10pt
+\topmargin -20pt
+\headsep 10pt
+\textheight 8.7in
+\textwidth 6.65in
+\linespread{1.2}
+
+\title{Policy Learning\\
+	\large MATH 818.01 Midterm Survey
+}
+\author{Wonjun Choi}
+\date{\today}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{conjecture}[theorem]{Conjecture}
+
+\newcommand{\rr}{\mathbb{R}}
+
+\newcommand{\al}{\alpha}
+\DeclareMathOperator{\conv}{conv}
+\DeclareMathOperator{\aff}{aff}
+
+\begin{document}
+	
+	\maketitle
+	
+	\begin{abstract}
+This paper surveys growing literature on policy learning in the interdiscipline area of economis, statistics, and computer science. Policy learning incorporates statistical decision making, AI/ML algorithms, and potential oucome model in economics literatue to find optimal policy assignment rule. Policy learning predicts expected outcome of a policy given practical restrictions such as budget constraint, fairness, or political reasons. Considerations rasied in the economics literature, applications of AI/ML algorithms, and mathematical foundation of the results are briefly introduced in turn. A suggestion for the final project is also presented in the final section.
+	\end{abstract}
+	
+	\section{Introduction}\label{section-introduction}
+Suppose you are a dean of the department and you are to allocate each graduate student to clean the building.
+	%\begin{CJK}{UTF8}{mj}
+		%본문에서도 당연히 한글 사용 가능합니다..만, CJK 환경으로 지정해야 합니다. 텍 소스를 보세요.
+	%\end{CJK}
+	
+	%\begin{theorem}[Helge Tverberg 1966 \cite{Tverberg:1966tb}]
+		%Given $(r-1)(d+1)+1$ points in $\rr^d$, there is a partition of them into $r$ parts whose convex hulls intersect.
+	%\end{theorem}
+	
+	\section{Economic Modeling of the Objective Function}
+	Before we begin, it is worth to stop and introduce typical approaches and notations in economics for policy evaluation, which will ease our conversation.
+	
+	\subsection*{Potential Outcome Framework}
+	Consider we are giving aspirins to patients and observing their body temperatures. After treatments are assigned to each patient, we can only observe only one side of the outcome; the temperature with or without taking aspirin. If one takes her aspirin, we cannot know what the temperature would have been without taking it, and vice versa. This is the fundamental problem of \textit{treatment effect} analysis.
+	
+	What would be the effect of an aspirin on body temperature? It would be the difference of boty temperature between taking aspirin and not. With $D$ equals 1 if the treatment is applied and 0 otherwise, let the potential outcome $Y(1)$ be the outcome with the treatment and $Y(0)$ be the outcome without the treatment. Now we can denote the treatment effect $\tau$ as
+	$$
+	\tau = Y(1) - Y(0).
+	$$
+	$\tau$ cannot be obtained without further assumptions since one of the outcome is not observed. In economics literature, the unobserved outcome is called \textit{counterfactual}. I refer IR2015, among many others,  for detailed explanations and issues in treatment effect analysis.
+	
+	\subsection*{Regret Function and Optimal Policy}
+	One practical concern in designing policy could be `How should we assign (limited) treatments for the best outcome?'.
+	 \cite{Manski.2004} introduced a framework for this analysis to economicsts based on \textit{statistical decision rule} of statistics literature.
+	 
+	 The concern of statistical treatement rule is that how tow assign a treatment $D$ to the population based on their covariates(features) $X \in \mathcal{X}$ to maximize utilitarian wellfare. Let's call this rule as \textit{policy} (function) $\pi:\mathcal{X} \rightarrow \{0,1\}$. 
+	 
+	 It is not difficult to find this kind of problem in reality. For example, consider a Youtube's recommendation algorithm (that is ruining your night).
+	 
+	 About \textit{regret function}. Results about regret functions: HiranoPorter2009, Stoye2009, Kitagawa and Tetenov2018.
+	
+	Extensions: AtheyWager2018
+
+	\section{AI/ML Applications}
+	As the problem we are concerning is ubiquotous, we can find literatures from computer science as well. Two of Langford's.
+	
+	Similar problems has been in computer science literature; Multi-armed bandit. Fortunately, we have learned this in the lecture of 5th Octover.
+	
+	Frequentist point of view in economics literature.
+	
+	\section{Mathematical/Statistical Foundations}
+Statistical Decision Making.\\
+
+As we compare policies in a policy class $\Pi$, the things we have in our consideration depend on the complexity of $\Pi$. Statistical literature offers some valuable tools to control the complexity of a class.
+VC-dimensions and entropy integrals.	
+
+\section{Empirical Example}
+
+	\section{Discussion}
+	
+	\section{Conclusion}
+	Conclusion
+	
+	Final project
+	
+	
+	
+	\bibliographystyle{apalike}
+	\bibliography{midpaper_PL} % see references.bib for bibliography management
+	
+\end{document}
