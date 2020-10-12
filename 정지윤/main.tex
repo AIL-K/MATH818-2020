@@ -49,30 +49,24 @@
 	\section{Introduction}\label{section-introduction}
 	
 	\begin{CJK}{UTF8}{mj}
-		본문에서도 당연히 한글 사용 가능합니다..만, CJK 환경으로 지정해야 합니다. 텍 소스를 보세요.
+		한글 
 	\end{CJK}
 	
-	Rummikub is a number-based board game. The players do not know 
-	
-	
-	
-	
-	
-	
+	Rummikub is a number-based board game. The players do not know the tiles that other players have and strategies that they choose to play; that is, every player lacks information during the game. Since there are 106 tiles and each player has only 14 tiles each initially, the player does not know which player has what tiles and what tiles are left untacted. In addition, it is not necessarily to give away every possible sets on the board, so it is comparatively hard to predict other players' strategies or status. For example, a player A has only finished one's initial meld, but do not give away sets anymore and has 23 tiles in this turn. The player B may have no sets to put down or perhaps trying to complete sets personally to finish the game in one final turn. Therefore, devising a program that aims to win the game Rummikub is likely to require some special algorithm or approach. Before getting into that, this paper will cover Case Studies of solving difficult games by using artificial intelligence (AI). Furthermore, the prior research of winning the game Rummikub in the way other than using AI will be covered as well.
 	
 	
 	%Tverberg's theorem has been a cornerstone of combinatorial convexity for over fifty years. Its impact and influence is only comparable to that of the famous and classic theorems of Carath\'eodory and Helly. This gem lies at the crossroads of combinatorics, topology, and linear algebra, and continues to yield challenging and interesting open problems.  Its states the following.
 	% If we denote by $\conv(S)$ the convex hull of a set $S \subset \rr^d$, it says the following
 	
-	\begin{theorem}[Helge Tverberg 1966 \cite{Tverberg:1966tb}]
-		Given $(r-1)(d+1)+1$ points in $\rr^d$, there is a partition of them into $r$ parts whose convex hulls intersect.
-	\end{theorem}
-	
-	\begin{figure}
-		\centerline{\includegraphics[scale=1]{fig1-Tverberg}}
-		\caption{An example of a Tverberg partition.  The partition is not unique.}
-	\end{figure}
-	
+%	\begin{theorem}[Helge Tverberg 1966 \cite{Tverberg:1966tb}]
+%		Given $(r-1)(d+1)+1$ points in $\rr^d$, there is a partition of them into $r$ parts whose convex hulls intersect.
+%	\end{theorem}
+%	
+%	\begin{figure}
+%		\centerline{\includegraphics[scale=1]{fig1-Tverberg}}
+%		\caption{An example of a Tverberg partition.  The partition is not unique.}
+%	\end{figure}
+%	
 	%More formally, given $X\subset \rr^d$ of $(r-1)(d+1)+1$ points, there is a partition $X=X_1\cup \dots \cup X_r$ such that $\bigcap_{j=1}^r \conv X_j \ne \emptyset$. Such a partition is called a
 	%\textit{Tverberg partition}. The number of points in this result is optimal, as a dimension-counting argument shows. In fact, if $X$ is in general enough position and in the partition $X=X_1\cup \ldots \cup X_r$ we have $1\le |X_j|\le d+1$ for every $j$, then $\bigcap_{j=1}^r \aff X_j$ is a single point if $|X|= (r-1)(d+1)+1$, and is empty if $|X|\le (r-1)(d+1)$.
 	
@@ -95,13 +89,16 @@
 	
 	\section{Complete and Incomplete Information Game}\label{section-information}
 	%두번째 줄에서 보여지는 게 목적이다. intro 와 같이 가도록. 바뀌면 다른 것도 바뀌게.
-	There are diverse classification of games--zero-sum and non-zero-sum game, perfect and imperfect information game, and $n$-person game to name a few. Especially, in terms of information
+	There are diverse classification of games--zero-sum and non-zero-sum game, perfect and imperfect information game, and $n$-person game to name a few.
 	In order to make a program that wins the game Rummikub, it is meaningful to look over prior researches of similar or opposite kinds of game. First, the game Rummikub is classified into an incomplete information game which is an opposite concept of a complete information game. 
 	
 	
+	\subsection{Utility Function}
 	Definition. Utility function
 	Utility function represents the degree of satisfaction of an input, which consists of various alternatives. Hence it reveals the preferences of the alternatives. The value of an output is to be maximized.\\
+	
 	Consider a utility function of a Prisoner's Dilemma.
+	%이부분 어떻게 적지?
 	
 	The set of players is $\{P_1, P_2\}$.
 	
@@ -112,21 +109,22 @@
 	The set of outcomes is $\{(C,C), (D,D), (C,D), (D,C)\}$.\\In one player's point of view, s/he do not know what the other player will choose, but knows that the other player is offered the same deal as written below. Prisoner's Dilemma is incomplete information game because the players do not know how the other player will act. A definition of incomplete information game will be introduced soon.% soon ok?
 
 	
-\begin{center}
-\begin{tabular}{cccll}
-\cline{1-3}
-\multicolumn{1}{|c|}{P1 / P2} & \multicolumn{1}{c|}{Confess} & \multicolumn{1}{c|}{Deny}    &  &  \\ \cline{1-3}
-\multicolumn{1}{|c|}{Confess} & \multicolumn{1}{c|}{(-3,-3)} & \multicolumn{1}{c|}{(0,-4)}  &  &  \\ \cline{1-3}
-\multicolumn{1}{|c|}{Deny}    & \multicolumn{1}{c|}{(-4,0)}  & \multicolumn{1}{c|}{(-1,-1)} &  &  \\ \cline{1-3}
-\multicolumn{1}{l}{}          & \multicolumn{1}{l}{}         & \multicolumn{1}{l}{}         &  & 
-\end{tabular}
-\end{center}
+%\begin{center}
+%\begin{tabular}{cccll}
+%\cline{1-3}
+%\multicolumn{1}{|c|}{P1 / P2} & \multicolumn{1}{c|}{Confess} & \multicolumn{1}{c|}{Deny}    &  &  \\ \cline{1-3}
+%\multicolumn{1}{|c|}{Confess} & \multicolumn{1}{c|}{(-3,-3)} & \multicolumn{1}{c|}{(0,-4)}  &  &  \\ \cline{1-3}
+%\multicolumn{1}{|c|}{Deny}    & \multicolumn{1}{c|}{(-4,0)}  & \multicolumn{1}{c|}{(-1,-1)} &  &  \\ \cline{1-3}
+%\multicolumn{1}{l}{}          & \multicolumn{1}{l}{}         & \multicolumn{1}{l}{}         &  & 
+%\end{tabular}
+%\end{center}
 
 	The utility of the player $P_i$ is $u_i(a_i, a_{-i})$ where $a_i$ denotes the action of a player $Pi$, and $a_{-i}$ denotes the action of the other player. Hence the result is as follows: 
 	$u_i(C,C)=-3, u_i(D,D)=-1, u_i(C,D)=0, u_i(D,C)=-4$.
 
-
 %더 일반화된 정보는 여기에: http://classes.engr.oregonstate.edu/eecs/spring2019/cs331/slides/GameTheory1.2pp.pdf
+
+	\subsection{Information Game}
 	Information is common knowledge if it is known to all the players, if each player knows that all the players know it, if each player knows that all the players know that all the players know it, and so forth ad infinitum.
 	% Eric Rasmusen - An Introduction to Game Theory p47 
 
@@ -139,14 +137,14 @@
 	%다른 해석
 	If we look over the meaning of the concept 'complete' itself, we can say as the following. Complete is a nature not moving first, or her initial move is observed by every player
 	% Eric Rasmusen - An Introduction to Game Theory p48 명사 동사형만 좀 바꿈
-	In a game of incomplete information, Nature moves first and is unobserved by at least one of the players. Otherwise the game is one of complete information.
+	In a game of incomplete information, the meaning of complete is that nature moves first and is unobserved by at least one of the players. Otherwise the game is one of incomplete information.
 	% p50
 	In contrast, an incomplete information refers to situations where some of the elements of the game are not common knowledge
 	
 	
 	
 	The concepts explained so far can also be demonstrated in mathematical language and this is dealt in many books of Game Theory, as such, reference~~%여기 표시
-	
+	Perfect is also a popular concept when classifying the game, because it is the strongest informational requirement. To put it another way, every player knows the meaning and strategies of other players' play. In addition, incomplete games are also imperfect games. The game Go, Chess, and Shogi which are played smartly by AlphaZero are all perfect information games. Starcrafts2 and Poker are imperfect information games.
 	
 	\section{Case Study: AlphaGo}\label{section-alphago}
 	As seen in Section \ref{section-information}, the game of Go is a complete information game.
@@ -170,13 +168,15 @@
 	
 	% Planning chemical syntheses with deep neural networks and symbolic AI Segler, Preuss & Waller ; doi: 10.1038/nature25978 ; credit to jsotola
 	
-	
-	\subsection{Deep Convolutional Neural Network}
-	Supervised learning?
+	% diagram 그려서 관계
 	
 	
-	\subsection{Reinforcement Learning}
-	
+%	\subsection{Deep Convolutional Neural Network}
+%	Supervised learning?
+%	
+%	
+%	\subsection{Reinforcement Learning}
+% 	Just focus on MCTS?	
 	
 	
 	\subsection{Monte Carlo Tree Search (MCTS)}
@@ -187,7 +187,18 @@
 	\section{Case Study: AlphaZero}\label{section-alphazero}
 		
 	%위에서 다 설명하고 끝내든지 하고 여기는 implementation 예시?
-	alpha-beta pruning
+	not using alpha-beta pruning 
+	
+	Alphazero also used MCTS to average the approximation errors made by non-linear function approximation.
+	%how?
+	
+	\subsection{Alpha-beta Pruning}
+	%설명하고 propagates the biggest approx erros ....
+	
+	
+	
+	alpha-beta search computes an explicit mini-max, which propagates the biggest approximation errors to the root of the subtree.
+	
 	%searching algorithm usually reduces the computational space 
 	
 	
@@ -236,9 +247,9 @@
 	\end{tikzpicture}
 	\end{center}
 		
-	Put the function of purpose $k=y - \frac{1}{x}$. $y = \frac{1}{x} +k$, $y = -0.9 x+2.4$
+	Put $k=y - \frac{1}{x}$.
 	
-	$k=y-\frac{1}{x}$ has the form of graph as illustrated as blue graphs. The graph should be on the region, or some point on the graph should also be on the region. Combining these two conditions, we can conclude that in order to maximize $k$, the graph should be as high  as possible about $y$-axis, meeting the region. Since $y = \frac{1}{x}+k$ has derivative $y' = -\frac{1}{x^2}$ on $(0,\infty)$, we can conclude that there exists some $(x,y)$ such that $y' = -0.9$. That is, there exists $k$ such that $y = \frac{1}{x} + k$ tangent to $y=-0.9x +2.4$. By calculations, we can get that two graphs meet at $(\frac{\sqrt{10}}{3}, -\frac{3\sqrt{10}}{10}+2.4)$. Then we conclude that maximum $k=\frac{19}{20}+2.4$
+	$k=y-\frac{1}{x}$ has the form of graph as illustrated as blue graphs. The graph should satisfy the following conditions: it should be on the region--some point on the graph should also be on the region--and it should make $k$ maximum. Combining these two conditions, we can conclude that the graph should be as high as possible about $y$-axis, still meeting the region. Since $y = \frac{1}{x}+k$ has derivative $y' = -\frac{1}{x^2}$ on $(0,\infty)$, we can conclude that there exists some $(x,y)$ such that $y' = -0.9$. That is, there exists $k$ such that $y = \frac{1}{x} + k$ tangent to $y=-0.9x +2.4$. By calculations, two graphs meet tangentially at the point $(\frac{\sqrt{10}}{3}, -\frac{3\sqrt{10}}{10}+2.4)$. By putting this value into $y = \frac{1}{x} +k$, we get the maximum $k=-\frac{3}{5}\sqrt{10}+2.4$
 	
 	We will see specific implementation of ILP in Section \ref{section-ILP imp}
 	
@@ -253,20 +264,45 @@
 	A group is a set of either three or four tiles of the same number in different colors.
 	A run is a set of three or more consecutive numbers, all in the same color.
 	
-	Scoring 
+	Scoring system
+
 	
 	
 	\section{ILP on Rummikub}\label{section-ILP imp}
 	
 	There are two goals of this programming:\\
-	(1) The major goal is to maximize the number or value of the tiles that can be placed onto the table.\\
+	(1) The major goal is to maximize the number of value of the tiles that can be placed onto the table.\\
 	(2) The minor goal is to minimize the movement of the existing sets on the table.\\
-	It seems like this programming is a greedy algorithm if we only look over the major goal. However, practical eff	
+	It seems like this programming is a greedy algorithm if we only look over the major goal. However, in order to consider real practice, 
+	
+	
+	
+	The ILP model is implemented in AIMMS (Advanced Integrated Multi-Dimensional Modelling Software) on a Pentium %3 로마자로
+	
 	
 
 	%anyone can do until now
 
-	\section{Implementation}\label{section-spaces}
+
+
+	\section{ILP on My First Rummikub}\label{section-ILP MFR}
+
+	%이걸 직접 해보기
+
+
+	\section{Implementation}\label{section-imp}
+	
+	%아니면 어떤 걸 써야할 것 같은지에 대새 쓰고 implementation 은 기말 과제로!
+	There are ~ goals of this programming:\\
+	(1) Maximize the number of value of the tiles that can be placed onto the table.\\
+	(2) Maximize 
+	% 1이랑 13 같이 끼워맞추기 어려운--이걸 수학적으로? 숫자는 먼저 낸다. 큰 수는 먼저 낸다 (점수에 반영)
+	
+	%scoring 에 영향을 주기 위해서는 어떻게 하면 좋을까. 어차피 다 내는 걸 목표로 해야할 텐데...
+	
+	
+	
+	
 	
 	\bibliographystyle{alpha}
 	\bibliography{references} % see references.bib for bibliography management
