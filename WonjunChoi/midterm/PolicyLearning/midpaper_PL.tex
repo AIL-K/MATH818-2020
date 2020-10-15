@@ -17,7 +17,7 @@
 \textwidth 6.65in
 \linespread{1.2}
 
-\title{Policy Learning\\
+\title{A Survey on Policy Learning\\
 	\large MATH 818.01 Midterm Survey
 }
 \author{Wonjun Choi}
@@ -42,7 +42,7 @@ This paper surveys growing literature on policy learning in the interdiscipline 
 	\end{abstract}
 	
 	\section{Introduction}\label{section-introduction}
-Suppose you are a dean of the department and you are to allocate each graduate student to clean the building.
+Suppose you are a dean of the department and you are to allocate each graduate student to put an elephant into a refrigerator.
 	%\begin{CJK}{UTF8}{mj}
 		%본문에서도 당연히 한글 사용 가능합니다..만, CJK 환경으로 지정해야 합니다. 텍 소스를 보세요.
 	%\end{CJK}
@@ -51,8 +51,10 @@ Suppose you are a dean of the department and you are to allocate each graduate s
 		%Given $(r-1)(d+1)+1$ points in $\rr^d$, there is a partition of them into $r$ parts whose convex hulls intersect.
 	%\end{theorem}
 	
-	\section{Economic Modeling of the Objective Function}
-	Before we begin, it is worth to stop and introduce typical approaches and notations in economics for policy evaluation, which will ease our conversation.
+	\section{Economic Modeling of the Allocation Problem}
+	Before we begin, it is worth to stop and introduce typical approaches in economics for policy evaluation. Introduced notations would ease our conversation throught this paper.
+	
+	Policy evaluation has been one of the most important topic in the field of economics.  As the government implements various economic policies, the outcome of the interventions need to be analyzied and has been studied in the framework of \textit{potential outcome}, which was frequently refered as \textit{Rubin's causal model}.
 	
 	\subsection*{Potential Outcome Framework}
 	Consider we are giving aspirins to patients and observing their body temperatures. After treatments are assigned to each patient, we can only observe only one side of the outcome; the temperature with or without taking aspirin. If one takes her aspirin, we cannot know what the temperature would have been without taking it, and vice versa. This is the fundamental problem of \textit{treatment effect} analysis.
@@ -61,25 +63,37 @@ Suppose you are a dean of the department and you are to allocate each graduate s
 	$$
 	\tau = Y(1) - Y(0).
 	$$
-	$\tau$ cannot be obtained without further assumptions since one of the outcome is not observed. In economics literature, the unobserved outcome is called \textit{counterfactual}. I refer IR2015, among many others,  for detailed explanations and issues in treatment effect analysis.
+	$\tau$ cannot be obtained without further assumptions since one of the outcome is not observed. In economics/statistics literature, the unobserved outcome is called \textit{counterfactual}. I refer \cite{imbens2015causal}, among many others,  for detailed explanations and issues in treatment effect analysis.
 	
 	\subsection*{Regret Function and Optimal Policy}
 	One practical concern in designing policy could be `How should we assign (limited) treatments for the best outcome?'.
-	 \cite{Manski.2004} introduced a framework for this analysis to economicsts based on \textit{statistical decision rule} of statistics literature.
+	 \cite{Manski.2004} introduced a framework for this analysis to economists based on \textit{statistical decision rule} of statistics literature(\cite{wald1950statistical}). 
 	 
-	 The concern of statistical treatement rule is that how tow assign a treatment $D$ to the population based on their covariates(features) $X \in \mathcal{X}$ to maximize utilitarian wellfare. Let's call this rule as \textit{policy} (function) $\pi:\mathcal{X} \rightarrow \{0,1\}$. 
+	 The concern of statistical treatement rule is that how tow assign a treatment $D$ to the population based on their covariates(features) $X \in \mathcal{X}$ to maximize utilitarian welfare $U$\footnote{If $U$ is stochastic, consider the mean $E(U)$.}. Let's call this assignment rule(function) as \textit{policy} $\pi:\mathcal{X} \rightarrow \{0,1\}$ and the collection of possible policies as $\Pi=\{\pi: \text{some restirctions on } \pi\}$.
 	 
-	 It is not difficult to find this kind of problem in reality. For example, consider a Youtube's recommendation algorithm (that is ruining your night).
+	 It is not difficult to find this kind of problem in reality. For example, consider a Youtube's recommendation algorithm (that helps you awake all night). For a given video A, the algorithm decides whether to recommend this video to you or not based on your characteristics\footnote{Of course, if we set a policy as $\pi:X \rightarrow \{A,B,C,D,...\}$, we can consider a more complexed decision makings.}. Now let's say Youtube has decided to  recommend this video to total 100 people among its users. Then Youtube would want to find an algorithm(policy) to maximize its total viewership(utilitarian welfare) among possible policies.
 	 
-	 About \textit{regret function}. Results about regret functions: HiranoPorter2009, Stoye2009, Kitagawa and Tetenov2018.
-	
-	Extensions: AtheyWager2018
+	 How can we measure the succesfulness of a given policy? In what sense, the optimal policy can be regarded as the best? As already mentioned, we are maximizing the utilitarian welfare so the best policy could be thought as
+	 $$
+	 \pi_{opt} = \arg \max_{\pi \in \Pi} ~U(\pi)
+	 $$
+	 where $U(\pi)$ is a total welfare of population when the policy $\pi$ is implemented. By defining a \textit{regert function} $R(\pi)$ as a difference between the welfare with the policy $\pi$ and the best possible outcome,
+	 $$
+	 R(\pi) = U(\pi_{opt}) - U(\pi),
+	 $$
+	 we can measure the successfulness of the policy $\pi$ by comparing $R(\pi)$. Now our objective becomes clear: finding a policy funtion $\pi$ that minimizes the functional $R(\pi)$. For a formal treatment about this setup, refer \cite{Manski.2004}, \cite{Kitagawa.2018}, \cite{Athey.2017txo}, and references therein.
+	 
+	 Theoretical efforts has been made to bound a reget function. With a properly decided policy, we can find a uniform bound of the regret function. Notice that if a regret function degenerate fast enough, we might be willing to adopt that that policy as a solution to our decision making problem. For some results regarding a regret bound and the minimax decision criteria, refer \cite{Stoye.2009}, \cite{Hirano.2009} in addtion to the references in the previous paragraph.
 
-	\section{AI/ML Applications}
-	As the problem we are concerning is ubiquotous, we can find literatures from computer science as well. Two of Langford's.
+	\section{Policy Learning Embedding AI/ML Algorithms}
+	The similar context can be found in computer science literature;  \textit{multi-armed bandit} and their close cousins. A decision of treatment rule(or policy) is becoming more of importance as many applications of the problem now have access to informative, lucrative data. Moreover, \textit{online} experiment allows us to collect new experimental data in our specific need with less cost.
 	
-	Similar problems has been in computer science literature; Multi-armed bandit. Fortunately, we have learned this in the lecture of 5th Octover.
+	However, it is also important to study \textit{offline} version of the problem: where historical data is available, while collecting new data is not.  Still, real world experiment is not that easy in many cases, and sometimes they are not available for political, ethic reasons. This survey also focuses on this offline setups.
 	
+	\cite{Dudik.2011}.
+	
+	 AtheyWager2018
+	 	
 	Frequentist point of view in economics literature.
 	
 	\section{Mathematical/Statistical Foundations}
