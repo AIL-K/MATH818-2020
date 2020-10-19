@@ -26,6 +26,7 @@
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{definition}[theorem]{Definition}
 
 \newcommand{\rr}{\mathbb{R}}
 
@@ -42,22 +43,19 @@ This paper surveys growing literature on policy learning in the interdiscipline 
 	\end{abstract}
 	
 	\section{Introduction}\label{section-introduction}
-Suppose you are a dean of the department and you are to allocate each graduate student to put an elephant into a refrigerator.
-	%\begin{CJK}{UTF8}{mj}
-		%본문에서도 당연히 한글 사용 가능합니다..만, CJK 환경으로 지정해야 합니다. 텍 소스를 보세요.
-	%\end{CJK}
+    Suppose you are a dean of the department and you are to allocate each graduate student to put an elephant into a refrigerator.
+
+	Online vs Offline setup
 	
-	%\begin{theorem}[Helge Tverberg 1966 \cite{Tverberg:1966tb}]
-		%Given $(r-1)(d+1)+1$ points in $\rr^d$, there is a partition of them into $r$ parts whose convex hulls intersect.
-	%\end{theorem}
+	Bayesian vs Frequentist
 	
 	\section{Economic Modeling of the Allocation Problem}
-	Before we begin, it is worth to stop and introduce typical approaches in economics for policy evaluation. Introduced notations would ease our conversation throught this paper.
+	It is worth to stop and introduce typical approaches in economics for policy evaluation. Introduced notations would ease our conversation throught this paper.
 	
 	Policy evaluation has been one of the most important topic in the field of economics.  As the government implements various economic policies, the outcome of the interventions need to be analyzied and has been studied in the framework of \textit{potential outcome}, which was frequently refered as \textit{Rubin's causal model}.
 	
 	\subsection*{Potential Outcome Framework}
-	Consider we are giving aspirins to patients and observing their body temperatures. After treatments are assigned to each patient, we can only observe only one side of the outcome; the temperature with or without taking aspirin. If one takes her aspirin, we cannot know what the temperature would have been without taking it, and vice versa. This is the fundamental problem of \textit{treatment effect} analysis.
+	Consider we are giving aspirins to patients and observing their body temperatures. After treatments are assigned to each patient, we can only observe only \textit{one side} of the outcome; the temperature with or without taking aspirin. If one takes her aspirin, we cannot know what the temperature would have been without taking it, and vice versa. This is the fundamental problem of \textit{treatment effect} analysis.
 	
 	What would be the effect of an aspirin on body temperature? It would be the difference of boty temperature between taking aspirin and not. With $D$ equals 1 if the treatment is applied and 0 otherwise, let the potential outcome $Y(1)$ be the outcome with the treatment and $Y(0)$ be the outcome without the treatment. Now we can denote the treatment effect $\tau$ as
 	$$
@@ -69,9 +67,9 @@ Suppose you are a dean of the department and you are to allocate each graduate s
 	One practical concern in designing policy could be `How should we assign (limited) treatments for the best outcome?'.
 	 \cite{Manski.2004} introduced a framework for this analysis to economists based on \textit{statistical decision rule} of statistics literature(\cite{wald1950statistical}). 
 	 
-	 The concern of statistical treatement rule is that how tow assign a treatment $D$ to the population based on their covariates(features) $X \in \mathcal{X}$ to maximize utilitarian welfare $U$\footnote{If $U$ is stochastic, consider the mean $E(U)$.}. Let's call this assignment rule(function) as \textit{policy} $\pi:\mathcal{X} \rightarrow \{0,1\}$ and the collection of possible policies as $\Pi=\{\pi: \text{some restirctions on } \pi\}$.
+	 The concern of statistical treatement rule is that how to assign a treatment $D$ to the population based on their covariates(features) $X \in \mathcal{X}$ to maximize utilitarian welfare $U$\footnote{If $U$ is stochastic, consider the mean $E(U)$.}. Let's call this assignment rule(function) as \textit{policy} $\pi:\mathcal{X} \rightarrow \{0,1\}$ and the collection of possible policies as $\Pi=\{\pi: \text{some restirctions on } \pi\}$.
 	 
-	 It is not difficult to find this kind of problem in reality. For example, consider a Youtube's recommendation algorithm (that helps you awake all night). For a given video A, the algorithm decides whether to recommend this video to you or not based on your characteristics\footnote{Of course, if we set a policy as $\pi:X \rightarrow \{A,B,C,D,...\}$, we can consider a more complexed decision makings.}. Now let's say Youtube has decided to  recommend this video to total 100 people among its users. Then Youtube would want to find an algorithm(policy) to maximize its total viewership(utilitarian welfare) among possible policies.
+	 It is not difficult to find this kind of problem in reality. For example, consider a Youtube's recommendation algorithm. For a given video A, the algorithm decides whether to recommend this video to you or not based on your characteristics\footnote{Of course, if we set a policy as $\pi:X \rightarrow \{A,B,C,D,...\}$, we can consider a more complexed decision making.}. Now let's say Youtube has decided to  recommend this video to total 100 people among its users. Then Youtube would want to find an algorithm(policy) to maximize its total viewership(utilitarian welfare) among possible policies.
 	 
 	 How can we measure the succesfulness of a given policy? In what sense, the optimal policy can be regarded as the best? As already mentioned, we are maximizing the utilitarian welfare so the best policy could be thought as
 	 $$
@@ -81,35 +79,55 @@ Suppose you are a dean of the department and you are to allocate each graduate s
 	 $$
 	 R(\pi) = U(\pi_{opt}) - U(\pi),
 	 $$
-	 we can measure the successfulness of the policy $\pi$ by comparing $R(\pi)$. Now our objective becomes clear: finding a policy funtion $\pi$ that minimizes the functional $R(\pi)$. For a formal treatment about this setup, refer \cite{Manski.2004}, \cite{Kitagawa.2018}, \cite{Athey.2017txo}, and references therein.
+	 we can measure the successfulness of the policy $\pi$ by comparing $R(\pi)$. Now our objective becomes clear: finding a policy funtion $\pi$ that minimizes the functional $R(\pi)$.
 	 
-	 Theoretical efforts has been made to bound a reget function. With a properly decided policy, we can find a uniform bound of the regret function. Notice that if a regret function degenerate fast enough, we might be willing to adopt that that policy as a solution to our decision making problem. For some results regarding a regret bound and the minimax decision criteria, refer \cite{Stoye.2009}, \cite{Hirano.2009} in addtion to the references in the previous paragraph.
+	 Theoretical efforts has been made to bound a reget function. With a properly decided policy, we can find a uniform bound of the regret function. Notice that if a regret function degenerate fastly enough, we might be willing to adopt that that policy as a solution to our decision making problem. For some results regarding a regret bound and the minimax decision criteria, refer \cite{Manski.2004} \cite{Stoye.2009},  and \cite{Hirano.2009}.
 
 	\section{Policy Learning Embedding AI/ML Algorithms}
-	The similar context can be found in computer science literature;  \textit{multi-armed bandit} and their close cousins. A decision of treatment rule(or policy) is becoming more of importance as many applications of the problem now have access to informative, lucrative data. Moreover, \textit{online} experiment allows us to collect new experimental data in our specific need with less cost.
+	The similar context can be found in computer science literature;  \textit{multi-armed bandit} and their close cousins. [about MAB]
 	
-	However, it is also important to study \textit{offline} version of the problem: where historical data is available, while collecting new data is not.  Still, real world experiment is not that easy in many cases, and sometimes they are not available for political, ethic reasons. This survey also focuses on this offline setups.
+	\cite{Dudik.2011} proposes a \textit{doubly robust} estimator for policy evaluation and optimization(learning). As mentioned in the previous section, the treatment effect of a policy cannot be estimated without further assumptions for the missing data problem(counterfactual). There are two typical approaches which the authors refer as \textit{direct method}(DM) and \textit{inverse propensity score}(IPS). For detailed treatment of these methods, refer their paper or \cite{imbens2015causal}. I briefly introduce their experimental setups which are more relevant to our remaining discussions. Notations and explanations are mostly theirs(\cite{Dudik.2011}).
 	
-	\cite{Dudik.2011}.
+	Consider i.i.d. data drawn from a distribution $D$: $(x,c) \sim D$, where $x\in \mathcal{X}$ is the feature vector and $c \in C = \{1,2,..,,k\}$ is the class label. An action $a$ is chosen by the policy $p(a|x,h)$, where $h$ is the history of previous observations. A reward $r_a$ is revealed while other potential rewards $r_{a'}$ remain unknown. Defining the $value$ of a policy $\pi$ as
+	$$
+	V^{\pi} = E_{x, \vec{r}}[r_{\pi(x)}],
+	$$
+	our policy learing objective is to find a policy that maximizes the value function.
 	
-	 AtheyWager2018
-	 	
-	Frequentist point of view in economics literature.
+	\cite{Dudik.2011} provides simulation results by transforming a classical classification problem\footnote{In a classification problem, we are searching for a classifier  $\pi: \mathcal{X} \rightarrow C$ that minimizes the classification error.} into a policy learning framework. They consider $(x,c)$ as a observed sample and let (potential) loss as $(x,l_1,l_2,\cdots,l_k)$ with $l_a = 1[a\neq c]$ where $1[\cdot]$ is an indicator function. Then the two problems become identical. The opposite way of transforming is also interesting: we can use an optimization tool for classification to solve our policy optimization.
+	
+	\cite{Kitagawa.2018} uses \cite{Dudik.2011}'s IPS estimator and proves that their \textit{empirical welfare maximize} methods meets semiparametric efficient minimax regret bound under some assumptions that are commonly used in economics literature. For readers who are interested in the assumptions that economists use may refer their paper.
+	
+	As the flexible and powerful feature of various AI/ML algorithms remain attractive to economists' eyes, there has been trials to embrace those methods for policy evaluation. Among many others, I introduce \cite{Athey.2017txo}  whose method can be equipped with AI/ML techniques. They suggests an algorithm to find such optimal policies:
+	\begin{enumerate}
+		\item Estimate the potential oucome equation $\hat{m}$ and the some function $\hat{g}$ using any methods whose rate of convergence is known.
+		\item Construct a score function for the value function $\hat{\Gamma}$ using nuisance components estimated in 1.
+		\item Find $\hat{\pi} = \arg \max \{ \sum (2\pi(X_i)-1) \hat{\Gamma} \} $ where $\pi(\cdot)$ is a trained weighted classifier.
+	\end{enumerate}
+For detailed instruction for $\hat{m},~\hat{g},~\hat{\Gamma}$, refer their paper. Here, part 1 and 3 of the algorithm can be obtained with AI/ML methods.
+
+For the part 1, we can use any methods whose rate of convergence in mean square error(MSE) is known. As many statistical(machine) learning techniques use a MSE criteria for their loss functions, various ML estimators can be used for the part 1. Also their convergence rate has been widely investigated nowadays. While optimization in the part 3 is not a convex optimization, the computation of the part 3 could be troublesome. As mentioned before, the problem can be translated into a weighted classification problem so we can use techniques developed for those classifications.
 	
 	\section{Mathematical/Statistical Foundations}
-Statistical Decision Making.\\
-
+	Theoretical properties of aforementioned methods rely on the calculation of \textit{Vapnik-Chervonenkis dimesion}[Cite] which I abbreviate hereafter as \textit{VC-dimension}. VC-dimension is a kind of measurement of the complexity of a collection. In our problem, we are searching for the optimal policy $\pi$ within the collection of feasible policies $\Pi$. Thus, our result depends on the complexity of the collenction $\Pi$.
+	
+	\begin{definition}[VC-dimension]
+		dd
+	\end{definition}
+	
 As we compare policies in a policy class $\Pi$, the things we have in our consideration depend on the complexity of $\Pi$. Statistical literature offers some valuable tools to control the complexity of a class.
-VC-dimensions and entropy integrals.	
+VC-dimensions and entropy integrals.
 
-\section{Empirical Example}
+Also related to \textit{learnable}.
 
-	\section{Discussion}
+	\section{Discussion/Conclusion}
+	In the survey, I introduced a problem of treatment assign rule and one path of the recent development.
 	
-	\section{Conclusion}
-	Conclusion
+	While the literature is fastly growing, there are still many unsolved questions remaining. First, in the real application of the problem, using the introduced methods requires several selection from user. For example, to estimate the part 1 of \cite{Athey.2017txo}'s algorithm, one have to decide which algorithm to use(or ensemble). Moreover, if the rate of convergence of that method is not known, one might have to derive it. The part 3 of their algorithms is also computationally tricky.
 	
-	Final project
+	Developed models so far are still parsimonious for many applications. For example, as in MAB, a treatment assignment could be repeated during the process. Also, the data collection can be augmented during the process(online setup). Using a longitudinal data might need more modifications especially when using ML methods.
+	
+	For the final project, I would like to study the case of `Disaster support' for COVID-19 in Korea. There was an debate on the way to distribute this aid: whether to provide it for everyone or low-incomed. I would like to investigate on this debate in terms of the consumption stimuli effect as many countries around the world considered similar policy as a fiscal stimuli for economy. Specifically I would like to adopt \cite{Kitagawa.2018}'s method or \cite{Athey.2017txo}'s method which involves an optimization using AI/ML algorithms.
 	
 	
 	
